@@ -1,9 +1,11 @@
 'use server';
 
-import { prisma } from '../lib/db/prisma';
-import { registerSchema } from '../utils/validation';
+import { prisma } from '@/lib/db/prisma';
+import { registerSchema } from '@/utils/validation';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
+import * as Sentry from '@sentry/nextjs';
+import { signOut } from '@/auth';
 
 export async function registerUser(formData: FormData) {
   try {
@@ -13,7 +15,6 @@ export async function registerUser(formData: FormData) {
       confirmPassword: formData.get('confirmPassword') as string,
       name: formData.get('name') as string || undefined,
     };
-
     const validatedData = registerSchema.parse(rawData);
 
     const existingUser = await prisma.user.findUnique({
@@ -41,7 +42,45 @@ export async function registerUser(formData: FormData) {
       const firstIssue = error.issues[0];
       return { success: false, error: firstIssue.message };
     }
-    console.error('Ошибка регистрации:', error);
+
+    Sentry.captureException(error);
     return { success: false, error: 'Ошибка при регистрации пользователя' };
+  }
+}
+
+export async function loginUser(formData: FormData) {
+  try {
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    if (!email || !password) {
+      return { success: false, error: 'Заполните все поля' };
+    }
+
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user) {
+      return { success: false, error: 'Неверный email или пароль' };
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password || '');
+    if (!passwordMatch) {
+      return { success: false, error: 'Неверный email или пароль' };
+    }
+
+    return { success: true };
+
+  } catch (error) {
+    Sentry.captureException(error);
+    return { success: false, error: 'Ошибка сервера при входе' };
+  }
+}
+
+export async function logoutUser() {
+  try {
+    await signOut({ redirect: false });
+    return { success: true };
+  } catch (error) {
+    Sentry.captureException(error);
+    return { success: false, error: 'Ошибка при выходе' };
   }
 }

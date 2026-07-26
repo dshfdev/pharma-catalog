@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchDrugs } from '@/lib/api/fetchDrugs';
+import { fetchDrugs } from '@/lib/api';
 
 export function useDrugs(filters?: DrugFilters) {
   return useQuery({
