@@ -1,0 +1,24 @@
+.header {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.logo {
+  color: var(--foreground);
+  font-size: 1.25rem;
+  font-weight: 700;
+  transition: color var(--transition);
+}
+.logo:hover {
+  color: var(--primary);
+}
+
+.mobileMenu {
+  border-top: 1px solid var(--border);
+  padding: 1rem;
+  background: var(--card-bg);
+}
