@@ -1,5 +1,5 @@
-//сетка карточек с пагинацией/фильтрацией
-import { DrugCard } from './DrugCard';
+import { DrugCard } from './DrugCard/DrugCard';
+import commonStyles from '@/styles/common.module.css';
 
 interface DrugListProps {
   drugs: any[];
@@ -11,7 +11,7 @@ export function DrugList({ drugs }: DrugListProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className={commonStyles.drugsGrid}>
       {drugs.map((drug) => (
         <DrugCard key={drug.id} drug={drug} />
       ))}

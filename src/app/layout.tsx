@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { Providers } from './providers';
 import { siteConfig } from '@/lib/config/siteConfig';
-import { Header } from '@/components/common/Header';
+import { Header } from '@/components/common/Header/Header';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {

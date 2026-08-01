@@ -1,86 +1,16 @@
+@import './variables.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --primary: #2563eb;
-  --primary-hover: #1d4ed8;
-  --card-bg: #ffffff;
-  --border: #e2e8f0;
-  --text-secondary: #475569;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0f172a;
-    --foreground: #f1f5f9;
-    --card-bg: #1e293b;
-    --border: #334155;
-    --text-secondary: #94a3b8;
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Кастомные утилиты для карточек */
-@layer components {
-  .drug-card {
-    @apply bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden transition-all hover:shadow-md hover:-translate-y-1;
-  }
-
-  .drug-card-image {
-    @apply relative h-48 bg-slate-100 dark:bg-slate-700;
-  }
-
-  .drug-card-content {
-    @apply p-4 space-y-1;
-  }
-
-  .drug-card-title {
-    @apply font-semibold text-lg text-slate-900 dark:text-white;
-  }
-
-  .drug-card-mnn {
-    @apply text-sm text-slate-500 dark:text-slate-400;
-  }
-
-  .drug-card-meta {
-    @apply text-sm text-slate-600 dark:text-slate-300;
-  }
-
-  .drug-card-price {
-    @apply text-lg font-bold text-blue-600 dark:text-blue-400 mt-2;
-  }
-
-  /* Кнопки */
-  .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors;
-  }
-
-  .btn-outline {
-    @apply border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium py-2 px-4 rounded-lg transition-colors;
-  }
-
-  /* Контейнер */
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  /* Заголовок страницы */
-  .page-title {
-    @apply text-3xl font-bold text-slate-900 dark:text-white mb-6;
-  }
-
-  /* Сетка */
-  .drugs-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
-  }
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
 }

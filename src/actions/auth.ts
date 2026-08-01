@@ -4,7 +4,7 @@ import { prisma } from '@/lib/db/prisma';
 import { registerSchema } from '@/utils/validation';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
-import * as Sentry from '@sentry/nextjs';
+import { captureException } from '@/lib/sentry';
 import { signOut } from '@/auth';
 
 export async function registerUser(formData: FormData) {
@@ -13,7 +13,7 @@ export async function registerUser(formData: FormData) {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
       confirmPassword: formData.get('confirmPassword') as string,
-      name: formData.get('name') as string || undefined,
+      name: (formData.get('name') as string) || undefined,
     };
     const validatedData = registerSchema.parse(rawData);
 
@@ -43,7 +43,7 @@ export async function registerUser(formData: FormData) {
       return { success: false, error: firstIssue.message };
     }
 
-    Sentry.captureException(error);
+    captureException(error);
     return { success: false, error: 'Ошибка при регистрации пользователя' };
   }
 }
@@ -68,9 +68,8 @@ export async function loginUser(formData: FormData) {
     }
 
     return { success: true };
-
   } catch (error) {
-    Sentry.captureException(error);
+    captureException(error);
     return { success: false, error: 'Ошибка сервера при входе' };
   }
 }
@@ -80,7 +79,7 @@ export async function logoutUser() {
     await signOut({ redirect: false });
     return { success: true };
   } catch (error) {
-    Sentry.captureException(error);
+    captureException(error);
     return { success: false, error: 'Ошибка при выходе' };
   }
 }

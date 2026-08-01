@@ -3,13 +3,12 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/lib/db/prisma';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
-import * as Sentry from '@sentry/nextjs';
+import { captureException } from '@/lib/sentry';
 import type { NextAuthOptions, User, Session } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
 
 export const authOptions: NextAuthOptions = {
-  // adapter: PrismaAdapter(prisma), // ← УБИРАЕМ адаптер полностью
-  session: { strategy: 'jwt' }, // ← оставляем JWT
+  session: { strategy: 'jwt' },
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -47,7 +46,7 @@ export const authOptions: NextAuthOptions = {
           ) {
             throw error;
           }
-          Sentry.captureException(error);
+          captureException(error);
           throw new Error('Ошибка авторизации');
         }
       },

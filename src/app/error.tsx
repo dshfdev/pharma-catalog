@@ -1,12 +1,12 @@
 'use client';
 
-import * as Sentry from "@sentry/nextjs";
+import * as Sentry from '@sentry/nextjs';
 import { useEffect } from 'react';
 
 export default function Error({
-                                error,
-                                reset,
-                              }: {
+  error,
+  reset,
+}: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {

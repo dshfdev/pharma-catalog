@@ -13,7 +13,9 @@ import { LoginForm } from '@/components/forms/LoginForm';
 import { RegisterForm } from '@/components/forms/RegisterForm';
 import { useState } from 'react';
 import Link from 'next/link';
-import { LogOut, User, Menu } from 'lucide-react'; // ← иконки
+import { LogOut, User, Menu } from 'lucide-react';
+import styles from './Header.module.css';
+import commonStyles from '@/styles/common.module.css';
 
 export function Header() {
   const { isAuthenticated, isLoading, logout } = useAuth();
@@ -23,8 +25,8 @@ export function Header() {
 
   if (isLoading) {
     return (
-      <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 py-3 px-4">
-        <div className="container-custom flex justify-between items-center">
+      <header className={styles.header}>
+        <div className={`${commonStyles.container} flex justify-between items-center py-3 px-4`}>
           <div className="text-xl font-bold text-slate-800 dark:text-white">Pharma Catalog</div>
           <div className="w-24 h-8 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
         </div>
@@ -33,14 +35,12 @@ export function Header() {
   }
 
   return (
-    <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 shadow-sm sticky top-0 z-50">
-      <div className="container-custom flex justify-between items-center py-3">
-        {/* Логотип */}
-        <Link href="/" className="text-xl font-bold text-slate-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+    <header className={styles.header}>
+      <div className={`${commonStyles.container} flex justify-between items-center py-3`}>
+        <Link href="/" className={styles.logo}>
           Pharma Catalog
         </Link>
 
-        {/* Десктопная навигация */}
         <nav className="hidden md:flex gap-4 items-center">
           {isAuthenticated ? (
             <>
@@ -51,7 +51,7 @@ export function Header() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => logout()}
+                onClick={logout}
                 className="flex items-center gap-1"
               >
                 <LogOut className="w-4 h-4" />
@@ -87,18 +87,16 @@ export function Header() {
           )}
         </nav>
 
-        {/* Мобильное меню */}
         <button
-          className="md:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+          className="md:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           <Menu className="w-6 h-6 text-slate-700 dark:text-slate-300" />
         </button>
       </div>
 
-      {/* Мобильное меню (выпадающее) */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-700 p-4 bg-white dark:bg-slate-900">
+        <div className={`${styles.mobileMenu} md:hidden`}>
           <nav className="flex flex-col gap-3">
             {isAuthenticated ? (
               <>

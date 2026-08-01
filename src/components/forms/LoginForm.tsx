@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { signIn } from 'next-auth/react';
+import styles from './Form.module.css';
 
 const loginSchema = z.object({
   email: z.string().email('Введите корректный email'),
@@ -66,27 +67,25 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <Input
-          type="email"
-          placeholder="Email"
-          {...register('email')}
-          className="w-full"
-        />
-        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <div className={styles.field}>
+        <Input type="email" placeholder="Email" {...register('email')} className={styles.input} />
+        {errors.email && <p className={styles.error}>{errors.email.message}</p>}
       </div>
-      <div>
+
+      <div className={styles.field}>
         <Input
           type="password"
           placeholder="Пароль"
           {...register('password')}
-          className="w-full"
+          className={styles.input}
         />
-        {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
       </div>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-      <Button type="submit" disabled={isLoading} className="w-full">
+
+      {error && <p className={styles.error}>{error}</p>}
+
+      <Button type="submit" disabled={isLoading} className={styles.submitButton}>
         {isLoading ? 'Вход...' : 'Войти'}
       </Button>
     </form>

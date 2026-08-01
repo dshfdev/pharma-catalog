@@ -6,14 +6,14 @@
 //import { DrugDetails } from '@/components/common/DrugDetails';
 
 //export default function InterceptedDrugModal({ params }: { params: { id: string } }) {
-  //const router = useRouter();
-  //const { data: drug, isLoading } = useDrug(params.id);
+//const router = useRouter();
+//const { data: drug, isLoading } = useDrug(params.id);
 
-  //return (
-    //<Modal open onClose={() => router.back()}>
-      //{isLoading ? <div>Загрузка...</div> : <DrugDetails drug={drug} />}
-    //</Modal>
-  //);
+//return (
+//<Modal open onClose={() => router.back()}>
+//{isLoading ? <div>Загрузка...</div> : <DrugDetails drug={drug} />}
+//</Modal>
+//);
 //}
 
 export default function InterceptedDrugModal() {
